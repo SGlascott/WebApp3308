@@ -1,0 +1,50 @@
+<ul id="blogList">
+    <li>
+        <header>Homework 3 - Home Page</header>
+        <p>
+            Prior to this class I gained experience in web development through 
+            internships as well as my own startup, <a href="SnoQap.com">SnoQap</a>.
+            These experiences have allowed me to work with HTML, CSS, JSP, Django,
+            and mySQL. I have not had any experience with JS though, so I am looking
+            forward to learning that in this Web Application class. This homework
+            required some simple CSS methods to help the general layout of my 
+            home page including unordered list formatting for the nav bar, fluid
+            layouts for the body using percentages, and some other basic structuring
+            methods. This homework assignment allowed me to start learning JavaScript.
+            The JS methods used to create a one page website are new to me since
+            I previously used Django for this purpose.
+            <a href="" onclick = " ajaxCall( 'htmlPartials/homePage.html', setContent, setError )">Return to home</a> 
+        </p>
+        
+    </li>
+    
+    <li>
+        <header> Data Model </header>
+        <p>
+            My data model consists of three tables: web_users, forum_posts, forum_comments.
+            The web_user table consists of my user's data such as name, email, birthday, and membership fee.
+            the forum_post contains the information for each post on my forum. It has a title, a body, and a date.
+            For my associative table we have forum comments, this has a body, a date, and foreign keys linking to the post and user.
+            
+            <a href="DataModel.pdf">Data Model</a>
+            
+        </p>
+    </li>
+    
+    <li>
+        <header>Data Display</header>
+        <p>
+            For this assignment, we learned how to access and retrieve data from
+            our databases. The overall concept of the connection and querying is easy,
+            you open the connection using the url, username, and password then once a
+            connection is established you can run a query, return it as a JSON, and then close the connection.
+            Once you have the data you can format it using JS, JSP, HTML, and CSS.
+            The hard part was using and adapting the sample code. Since we didnt write it,
+             it took a while to understand how everything was connected. The most 
+             important part is the connectivity of the files, which is going from json 
+             to POJO to an HTML Table. During this exercise we also practiced causing 
+             DB Errors:
+             <a href="DBAccessErrors.pdf">Data Access Errors</a>
+        </p>
+    </li>
+</ul>

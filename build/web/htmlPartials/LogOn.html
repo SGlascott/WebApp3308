@@ -1,0 +1,14 @@
+<div style="margin-left:2em;">
+    <p>
+        Enter the id of a web user. If that user is in the database, all user info will be displayed. 
+    </p>
+
+    <p>
+        Web User Id:
+        <input type="text" id="userEmail"/>
+        Password:
+        <input type="password" id="userPassword"/>
+        <button onclick="findUserFn(document.getElementById('userEmail').value, document.getElementById('userPassword').value)">Find User</button>
+    </p>
+    <div id="userInfoHere"></div>
+</div>

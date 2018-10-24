@@ -1,0 +1,3 @@
+User =	tuf01128
+Password = ukaijoob
+DB =	FA18_3308_tuf01128

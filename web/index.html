@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TU Happening</title>
+        <link href="style/style.css" rel="stylesheet" type="text/css" />
+        <link href="style/listStyle.css" rel="stylesheet" type="text/css" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id = "mainWrapper">
+            
+            <nav id="header">
+                <div id="nav">
+                    <ul>
+                    <li id="title" style="float:left;">TU Happening</li>
+                    <li class="navLink" id="dropdown" onclick="toggleChild(this)">&nbsp;&nbsp;&nbsp;&nbsp;Data&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="subMenu">
+                            <a onclick = "ajaxCall('webAPIs/listUsersAPI.jsp', setUserContent, setError)">Users</a>
+                            <a onclick = "ajaxCall('webAPIs/listAssocAPI.jsp', setAssocContent, setError)">Assoc</a>
+                            <a onclick = "ajaxCall('webAPIs/listOtherAPI.jsp', setforumContent, setError)">Forum</a>
+                        </div>
+                    </li>
+                    <li class="navLink" id="dropdown" onclick="toggleChild(this)">&nbsp;&nbsp;&nbsp;&nbsp;Account&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="subMenu">
+                            <a onclick = "ajaxCall('htmlPartials/LogOn.html', setContent, setError)">Log On</a>
+                            <a onclick = "ajaxCall('webAPIs/LogOutAPI.jsp')">Log Out</a>
+                            <a onclick = "ajaxCall('webAPIs/getProfileAPI.jsp', processProfile, processProfileError)">Profile</a>
+                        </div>
+                    </li>
+                    <li class="navLink"><a onclick = " ajaxCall( 'htmlPartials/blogPage.html', setContent, setError )">Blog</a></li>
+                    <li class="navLink"><a onclick = " ajaxCall( 'htmlPartials/homePage.html', setContent, setError )">Home</a></li>                    
+                    </ul>
+                </div>
+            </nav>
+            
+            <div id="content"></div>
+            
+            <div id="footer">
+                Scott Glascott
+            </div>
+        </div>
+        
+        <script src="js/ajaxUtilities.js"></script>
+        <script src="js/dropDownMenu.js"></script>
+        <script src="js/buildTable.js"></script>
+        <script src="js/findUser.js"></script>
+        <script src="js/viewProfile.js"></script>
+
+        <script>
+            
+        "use strict"; // tell browser all variables must be declared (with "var") before 1st use
+
+            // Make sure initial page load has home content displayed. 
+            // ajaxCall will read from file "homeContente.html" then place those results in 
+            // the HTML element with id "content". 
+            ajaxCall("htmlPartials/homePage.html", setContent, setError);
+
+            // Place the contents of the file url into the 
+            // innerHTML property of the HTML element with id "content". 
+            function setContent(httpRequest) {
+                console.log("Ajax call was successful.");
+                document.getElementById("content").innerHTML = httpRequest.responseText;
+            }
+
+            function setError(httpRequest) {
+                console.log("Ajax call was NOT successful.");
+                console.log(httpRequest);
+                document.getElementById("content").innerHTML = httpRequest.errorMsg;
+            }
+
+            function setUserContent(httpRequest) {
+
+                console.log("listUsersResponse - here is the value of httpRequest object (next line)");
+                console.log(httpRequest);
+
+                var dataList = document.createElement("div");
+                dataList.id = "dataList"; // this is for styling the HTML table.
+                document.getElementById("content").innerHTML = "";
+                document.getElementById("content").appendChild(dataList);
+
+                var obj = JSON.parse(httpRequest.responseText);
+
+                if (obj === null) {
+                    dataList.innerHTML = "listUsersResponse Error: JSON string evaluated to null.";
+                    return;
+                }
+
+
+                for (var i = 0; i< obj.webUserList.length; i++) {
+                    delete obj.webUserList[i].userPassword2;
+                }
+
+                // buildTable Parameters: 
+                // First:  array of objects that are to be built into an HTML table.
+                // Second: string that is database error (if any) or empty string if all OK.
+                // Third:  reference to DOM object where built table is to be stored. 
+                buildTable(obj.webUserList, obj.dbError, dataList);
+
+                }
+                function setforumContent(httpRequest) {
+
+                console.log("listforumResponse - here is the value of httpRequest object (next line)");
+                console.log(httpRequest);
+
+                var dataList = document.createElement("div");
+                dataList.id = "dataList"; // this is for styling the HTML table.
+                document.getElementById("content").innerHTML = "";
+                document.getElementById("content").appendChild(dataList);
+
+                var obj = JSON.parse(httpRequest.responseText);
+
+                if (obj === null) {
+                    dataList.innerHTML = "listUsersResponse Error: JSON string evaluated to null.";
+                    return;
+                }
+
+
+                for (var i = 0; i< obj.forumList.length; i++) {
+                    delete obj.forumList[i].userPassword2;
+                }
+
+                // buildTable Parameters: 
+                // First:  array of objects that are to be built into an HTML table.
+                // Second: string that is database error (if any) or empty string if all OK.
+                // Third:  reference to DOM object where built table is to be stored. 
+                buildTable(obj.forumList, obj.dbError, dataList);
+
+                }
+                
+                function setAssocContent(httpRequest) {
+
+                console.log("listforumResponse - here is the value of httpRequest object (next line)");
+                console.log(httpRequest);
+
+                var dataList = document.createElement("div");
+                dataList.id = "dataList"; // this is for styling the HTML table.
+                document.getElementById("content").innerHTML = "";
+                document.getElementById("content").appendChild(dataList);
+
+                var obj = JSON.parse(httpRequest.responseText);
+
+                if (obj === null) {
+                    dataList.innerHTML = "listUsersResponse Error: JSON string evaluated to null.";
+                    return;
+                }
+
+
+                for (var i = 0; i< obj.postList.length; i++) {
+                    delete obj.postList[i].userPassword2;
+                }
+
+                // buildTable Parameters: 
+                // First:  array of objects that are to be built into an HTML table.
+                // Second: string that is database error (if any) or empty string if all OK.
+                // Third:  reference to DOM object where built table is to be stored. 
+                buildTable(obj.postList, obj.dbError, dataList);
+
+                }
+                
+                function processProfile(httpRequest) {
+                    var msg = "Successfully called the profile API!";
+                    var obj = JSON.parse(httpRequest.responseText);
+                    console.log("Successfully called the profile API. obj contents: ");
+                    console.log(obj);
+                    if (obj.webUserList[0].errorMsg.length > 0) {
+                        msg += "However, the profile API supplied this error message: "
+                                + obj.webUserList[0].errorMsg;
+                    } else {
+                        msg += "<br/>Web User number " + obj.webUserList[0].webUserId;
+                        msg += "<br/> &nbsp; Email: " + obj.webUserList[0].userEmail;
+                        msg += "<br/> &nbsp; Birthday: " + obj.webUserList[0].birthday;
+                        msg += "<br/> &nbsp; MembershipFee: " + obj.webUserList[0].membershipFee;
+                        msg += "<br/> &nbsp; User Role Id: " + obj.webUserList[0].userRoleId;
+                        msg += "<br/> &nbsp; User Role: " + obj.webUserList[0].userRoleType;
+                    }
+                    document.getElementById("content").innerHTML = msg;
+                }
+
+                function processProfileError(httpRequest) {
+                    document.getElementById("content").innerHTML = "Profile request failed: "
+                            + httpRequest.errorMsg;
+                }
+        </script>
+    </body>
+</html>
