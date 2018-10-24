@@ -47,4 +47,23 @@
              <a href="DBAccessErrors.pdf">Data Access Errors</a>
         </p>
     </li>
+    
+    <li>
+        <header>Log On</header>
+        <p>
+            For this assignment, we were tasked with allowing users to log into our
+            sites, have the ability to view their profiles, and then have them log out.
+            Thanks to JSP pages and the GlassFish server, we are able to do this through
+            Sessions and session handling. When a user logs in, a new sessions created.
+            This will then track them as they navigate the site until they log out.
+            We can fetch their session whenever it is required, in this instance we
+            need it to view their profiles and also allow them to log out. The session 
+            handling was the most challenging part of this lab since it was new material.
+            I specifically, had trouble with error handling. I had some trouble properly catching
+            the instance where a user wanted to view their profile but was not logged in.
+            I ended up doing a try catch statement to catch the null object return
+            from the API. 
+            
+        </p>
+    </li>
 </ul>

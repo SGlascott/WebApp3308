@@ -168,28 +168,45 @@ and open the template in the editor.
                     var obj = JSON.parse(httpRequest.responseText);
                     console.log("Successfully called the profile API. obj contents: ");
                     console.log(obj);
-                    if (obj.webUserList[0].errorMsg.length > 0) {
-                        msg += "However, the profile API supplied this error message: "
-                                + obj.webUserList[0].errorMsg;
-                    } 
-                    else if(obj.webUserList[0] === null)
-                    {
-                        msg+="You are not logged in";
+                    try{
+                        if(obj.webUserList === null)
+                        {
+                            msg+="You are not logged in";
+                        }
+                        else if (obj.webUserList[0].errorMsg.length > 0) {
+                            msg += "However, the profile API supplied this error message: "
+                                    + obj.webUserList[0].errorMsg;
+                        } 
+
+                        else {
+                            msg += "<br/>Web User number " + obj.webUserList[0].webUserId;
+                            msg += "<br/> &nbsp; Email: " + obj.webUserList[0].userEmail;
+                            msg += "<br/> &nbsp; Birthday: " + obj.webUserList[0].birthday;
+                            msg += "<br/> &nbsp; MembershipFee: " + obj.webUserList[0].membershipFee;
+                            msg += "<br/> &nbsp; User Role Id: " + obj.webUserList[0].userRoleId;
+                            msg += "<br/> &nbsp; User Role: " + obj.webUserList[0].userRoleType;
+                        }
+                        document.getElementById("content").innerHTML = msg;
                     }
-                    else {
-                        msg += "<br/>Web User number " + obj.webUserList[0].webUserId;
-                        msg += "<br/> &nbsp; Email: " + obj.webUserList[0].userEmail;
-                        msg += "<br/> &nbsp; Birthday: " + obj.webUserList[0].birthday;
-                        msg += "<br/> &nbsp; MembershipFee: " + obj.webUserList[0].membershipFee;
-                        msg += "<br/> &nbsp; User Role Id: " + obj.webUserList[0].userRoleId;
-                        msg += "<br/> &nbsp; User Role: " + obj.webUserList[0].userRoleType;
+                    catch (e) {
+                        if (e instanceof TypeError) {
+                            document.getElementById("content").innerHTML = 
+                                    "You are not logged in!" + 
+                                    "<br/><button onclick = \"ajaxCall('htmlPartials/LogOn.html', setContent, setError)\">Click here to log in</button>";
+                        } else {
+                            printError(e, false);
+                        }
                     }
-                    document.getElementById("content").innerHTML = msg;
                 }
 
                 function processProfileError(httpRequest) {
-                    document.getElementById("content").innerHTML = "Profile request failed: "
-                            + httpRequest.errorMsg;
+                    if (obj.webUserList === null){
+                        
+                    }
+                    else{
+                        document.getElementById("content").innerHTML = "Profile request failed: "
+                                + httpRequest.errorMsg;
+                    }
                 }
         </script>
     </body>
