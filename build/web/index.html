@@ -29,8 +29,8 @@ and open the template in the editor.
                     <li class="navLink" id="dropdown" onclick="toggleChild(this)">&nbsp;&nbsp;&nbsp;&nbsp;Account&nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="subMenu">
                             <a onclick = "ajaxCall('htmlPartials/LogOn.html', setContent, setError)">Log On</a>
-                            <a onclick = "ajaxCall('webAPIs/LogOutAPI.jsp')">Log Out</a>
-                            <a onclick = "ajaxCall('webAPIs/getProfileAPI.jsp', processProfile, processProfileError)">Profile</a>
+                            <a onclick = "ajaxCall('webAPIs/LogOutAPI.jsp', setContent, setError)">Log Out</a>
+                            <a onclick = "ajaxCall('webAPIs/findProfileAPI.jsp', processProfile, processProfileError)">Profile</a>
                         </div>
                     </li>
                     <li class="navLink"><a onclick = " ajaxCall( 'htmlPartials/blogPage.html', setContent, setError )">Blog</a></li>
@@ -171,7 +171,12 @@ and open the template in the editor.
                     if (obj.webUserList[0].errorMsg.length > 0) {
                         msg += "However, the profile API supplied this error message: "
                                 + obj.webUserList[0].errorMsg;
-                    } else {
+                    } 
+                    else if(obj.webUserList[0] === null)
+                    {
+                        msg+="You are not logged in";
+                    }
+                    else {
                         msg += "<br/>Web User number " + obj.webUserList[0].webUserId;
                         msg += "<br/> &nbsp; Email: " + obj.webUserList[0].userEmail;
                         msg += "<br/> &nbsp; Birthday: " + obj.webUserList[0].birthday;

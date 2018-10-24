@@ -5,7 +5,7 @@
 <%@page language="java" import="com.google.gson.*" %>
 
 <%
-    StringDataList User = (StringDataList) session.getAttribute("User");
+    StringDataList User = (StringDataList) session.getAttribute("user");
 
     try{
         session.invalidate();

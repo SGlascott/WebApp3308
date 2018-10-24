@@ -6,7 +6,7 @@
 
 
 <%
-    StringDataList User = (StringDataList) session.getAttribute("currentUser");
+    StringDataList User = (StringDataList) session.getAttribute("user");
  
     Gson gson = new Gson();
     out.print(gson.toJson(User).trim());
