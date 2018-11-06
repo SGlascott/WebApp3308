@@ -21,20 +21,21 @@ and open the template in the editor.
                     <li id="title" style="float:left;">TU Happening</li>
                     <li class="navLink" id="dropdown" onclick="toggleChild(this)">&nbsp;&nbsp;&nbsp;&nbsp;Data&nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="subMenu">
-                            <a onclick = "ajaxCall('webAPIs/listUsersAPI.jsp', setUserContent, setError)">Users</a>
-                            <a onclick = "ajaxCall('webAPIs/listAssocAPI.jsp', setAssocContent, setError)">Assoc</a>
-                            <a onclick = "ajaxCall('webAPIs/listOtherAPI.jsp', setforumContent, setError)">Forum</a>
+                            <a onclick = "ajax('webAPIs/listUsersAPI.jsp', setUserContent, 'content')">Users</a>
+                            <a onclick = "ajax('webAPIs/listAssocAPI.jsp', setAssocContent, 'content')">Assoc</a>
+                            <a onclick = "ajax('webAPIs/listOtherAPI.jsp', setforumContent, 'content')">Forum</a>
                         </div>
                     </li>
                     <li class="navLink" id="dropdown" onclick="toggleChild(this)">&nbsp;&nbsp;&nbsp;&nbsp;Account&nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="subMenu">
-                            <a onclick = "ajaxCall('htmlPartials/LogOn.html', setContent, setError)">Log On</a>
-                            <a onclick = "ajaxCall('webAPIs/LogOutAPI.jsp', setContent, setError)">Log Out</a>
-                            <a onclick = "ajaxCall('webAPIs/findProfileAPI.jsp', processProfile, processProfileError)">Profile</a>
+                            <a onclick = "ajax('htmlPartials/LogOn.html', setContent, 'content')">Log On</a>
+                            <a onclick = "ajax('webAPIs/LogOutAPI.jsp', setContent, 'content')">Log Out</a>
+                            <a onclick = "ajax('webAPIs/findProfileAPI.jsp', processProfile, 'content')">Profile</a>
+                            <a onclick = "postCRUD.startInsert()">New Post</a>
                         </div>
                     </li>
-                    <li class="navLink"><a onclick = " ajaxCall( 'htmlPartials/blogPage.html', setContent, setError )">Blog</a></li>
-                    <li class="navLink"><a onclick = " ajaxCall( 'htmlPartials/homePage.html', setContent, setError )">Home</a></li>                    
+                    <li class="navLink"><a onclick = " ajax( 'htmlPartials/blogPage.html', setContent, 'content' )">Blog</a></li>
+                    <li class="navLink"><a onclick = " ajax( 'htmlPartials/homePage.html', setContent, 'content' )">Home</a></li>                    
                     </ul>
                 </div>
             </nav>
@@ -46,11 +47,14 @@ and open the template in the editor.
             </div>
         </div>
         
-        <script src="js/ajaxUtilities.js"></script>
+        <script src="js/ajax.js"></script>
+        <script src="js/userCRUD.js"></script>
+        <script src="js/postCRUD.js"></script>
         <script src="js/dropDownMenu.js"></script>
         <script src="js/buildTable.js"></script>
         <script src="js/findUser.js"></script>
         <script src="js/viewProfile.js"></script>
+        <script src="js/makePickList.js"></script>
 
         <script>
             
@@ -59,10 +63,11 @@ and open the template in the editor.
             // Make sure initial page load has home content displayed. 
             // ajaxCall will read from file "homeContente.html" then place those results in 
             // the HTML element with id "content". 
-            ajaxCall("htmlPartials/homePage.html", setContent, setError);
+            ajax("htmlPartials/homePage.html", setContent,'content');
 
             // Place the contents of the file url into the 
             // innerHTML property of the HTML element with id "content". 
+
             function setContent(httpRequest) {
                 console.log("Ajax call was successful.");
                 document.getElementById("content").innerHTML = httpRequest.responseText;

@@ -1,0 +1,28 @@
+<div id="insertArea">
+
+    <table>
+        <tr>
+            <td>Title</td>
+            <td><input type="text"  id="postTitle" /></td>
+            <td id="titleError" class="error"></td> 
+        </tr>
+        <tr>
+            <td>Body</td>
+            <td><input type="text"  id="body" /></td>
+            <td id="bodyError" class="error"></td> 
+        </tr>
+        <tr>
+            <td>Poster</td>
+            <td><input type="text"  id="poster" /></td>
+            <td id="posterError" class="error"></td> 
+        </tr>
+        
+        <tr>
+            <!-- see js/insertUser.js to see the insertUser function (make sure index.html referencesinvokes the js file) -->
+            <td><button onclick="postCRUD.insertSave()">Post</button></td>
+            <td id="recordError" class="error"></td>
+            <td></td>
+        </tr>
+
+    </table>
+</div>

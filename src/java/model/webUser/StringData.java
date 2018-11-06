@@ -14,10 +14,13 @@ import java.sql.ResultSet;
  * protect this data in any way.  We want to let the JSP page have
  * free access to put data in or take it out. */
 public class StringData {
-
+    
+    public String firstName = "";
+    public String lastName = "";
     public String webUserId = "";
     public String userEmail = "";
     public String userPassword = "";
+    public String userPassword2 = "";
     public String birthday = "";
     public String membershipFee = "";
     public String userRoleId = "";   // Foreign Key
@@ -25,13 +28,15 @@ public class StringData {
 
     public String errorMsg = "";
 
-    // default constructor leaves all data members with empty string (Nothing null).
+    // default constructor leaves all data members with empty string.
     public StringData() {
     }
 
     // overloaded constructor sets all data members by extracting from resultSet.
     public StringData(ResultSet results) {
         try {
+            this.firstName = FormatUtils.formatString(results.getObject("first_name"));
+            this.lastName = FormatUtils.formatString(results.getObject("last_name"));
             this.webUserId = FormatUtils.formatInteger(results.getObject("web_user_id"));
             this.userEmail = FormatUtils.formatString(results.getObject("user_email"));
             this.userPassword = FormatUtils.formatString(results.getObject("user_password"));
@@ -45,15 +50,18 @@ public class StringData {
     }
 
     public int getCharacterCount() {
-        String s = this.webUserId + this.userEmail + this.userPassword + this.birthday
+        String s = this.webUserId + this.userEmail + this.userPassword + this.userPassword2 + this.birthday
                 + this.membershipFee + this.userRoleId + this.userRoleType;
         return s.length();
     }
 
     public String toString() {
         return "Web User Id:" + this.webUserId
+                + ", User First Name:" + this.firstName
+                + ", User Last Name:" + this.lastName
                 + ", User Email: " + this.userEmail
                 + ", User Password: " + this.userPassword
+                + ", User Password2: " + this.userPassword2
                 + ", Birthday: " + this.birthday
                 + ", Membership Fee: " + this.membershipFee
                 + ", User Role Id: " + this.userRoleId
