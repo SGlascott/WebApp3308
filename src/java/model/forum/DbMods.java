@@ -1,6 +1,6 @@
-package model.post;
+package model.forum;
 
-import model.post.*;
+import model.forum.*;
 import dbUtils.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ public class DbMods {
 
         // Validation
         errorMsgs.postTitle = ValidationUtils.stringValidationMsg(inputData.postTitle, 45, true);
-        errorMsgs.commentBody = ValidationUtils.stringValidationMsg(inputData.commentBody, 45, true);
+        errorMsgs.postBody = ValidationUtils.stringValidationMsg(inputData.postBody, 45, true);
         return errorMsgs;
     } // validate 
 
@@ -35,8 +35,8 @@ public class DbMods {
         } else { // all fields passed validation
 
             // Start preparing SQL statement
-            String sql = "INSERT INTO post_comments (comment_body, comment_date, comment_user, comment_forum) "
-                    + "values (?,?,?,?)";
+            String sql = "INSERT INTO forum_post (post_title, post_body, post_date) "
+                    + "values (?,?,?)";
 
             // PrepStatement is Sally's wrapper class for java.sql.PreparedStatement
             // Only difference is that Sally's class takes care of encoding null 
@@ -44,13 +44,11 @@ public class DbMods {
             PrepStatement pStatement = new PrepStatement(dbc, sql);
 
             // Encode string values into the prepared statement (wrapper class).
-            pStatement.setInt(4, ValidationUtils.integerConversion(inputData.postTitle));
-            pStatement.setInt(3, ValidationUtils.integerConversion(inputData.firstName));
-            pStatement.setString(1, inputData.commentBody);
+            pStatement.setString(1, inputData.postTitle);
+            pStatement.setString(2, inputData.postBody);
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate ld = LocalDate.now();
-            pStatement.setDate(2, ValidationUtils.dateConversion(dtf.format(ld)));
-
+            pStatement.setDate(3, ValidationUtils.dateConversion(dtf.format(ld)));
 
             // here the SQL statement is actually executed
             int numRows = pStatement.executeUpdate();

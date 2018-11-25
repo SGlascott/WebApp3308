@@ -23,7 +23,7 @@ and open the template in the editor.
                         <div class="subMenu">
                             <a onclick = "ajax('webAPIs/listUsersAPI.jsp', setUserContent, 'content')">Users</a>
                             <a onclick = "ajax('webAPIs/listAssocAPI.jsp', setAssocContent, 'content')">Assoc</a>
-                            <a onclick = "ajax('webAPIs/listOtherAPI.jsp', setforumContent, 'content')">Forum</a>
+                            <a onclick = "ajax('webAPIs/listOtherAPI.jsp', setforumDataContent, 'content')">ForumData</a>
                         </div>
                     </li>
                     <li class="navLink" id="dropdown" onclick="toggleChild(this)">&nbsp;&nbsp;&nbsp;&nbsp;Account&nbsp;&nbsp;&nbsp;&nbsp;
@@ -32,8 +32,10 @@ and open the template in the editor.
                             <a onclick = "ajax('webAPIs/LogOutAPI.jsp', setContent, 'content')">Log Out</a>
                             <a onclick = "ajax('webAPIs/findProfileAPI.jsp', processProfile, 'content')">Profile</a>
                             <a onclick = "postCRUD.startInsert()">New Post</a>
+                            <a onclick = "commentCRUD.startInsert()">New Comment</a>
                         </div>
                     </li>
+                    <li class="navLink"><a onclick = "ajax('webAPIs/listOtherAPI.jsp', setforumContent, 'content')">forum</a></li>
                     <li class="navLink"><a onclick = " ajax( 'htmlPartials/blogPage.html', setContent, 'content' )">Blog</a></li>
                     <li class="navLink"><a onclick = " ajax( 'htmlPartials/homePage.html', setContent, 'content' )">Home</a></li>                    
                     </ul>
@@ -50,8 +52,10 @@ and open the template in the editor.
         <script src="js/ajax.js"></script>
         <script src="js/userCRUD.js"></script>
         <script src="js/postCRUD.js"></script>
+        <script src="js/commentCRUD.js"></script>
         <script src="js/dropDownMenu.js"></script>
         <script src="js/buildTable.js"></script>
+        <script src="js/buildForum.js"></script>
         <script src="js/findUser.js"></script>
         <script src="js/viewProfile.js"></script>
         <script src="js/makePickList.js"></script>
@@ -108,7 +112,7 @@ and open the template in the editor.
                 buildTable(obj.webUserList, obj.dbError, dataList);
 
                 }
-                function setforumContent(httpRequest) {
+                function setforumDataContent(httpRequest) {
 
                 console.log("listforumResponse - here is the value of httpRequest object (next line)");
                 console.log(httpRequest);
@@ -135,6 +139,96 @@ and open the template in the editor.
                 // Second: string that is database error (if any) or empty string if all OK.
                 // Third:  reference to DOM object where built table is to be stored. 
                 buildTable(obj.forumList, obj.dbError, dataList);
+
+                }
+                
+                function setAssocContent(httpRequest) {
+
+                console.log("listforumResponse - here is the value of httpRequest object (next line)");
+                console.log(httpRequest);
+
+                var dataList = document.createElement("div");
+                dataList.id = "dataList"; // this is for styling the HTML table.
+                document.getElementById("content").innerHTML = "";
+                document.getElementById("content").appendChild(dataList);
+
+                var obj = JSON.parse(httpRequest.responseText);
+
+                if (obj === null) {
+                    dataList.innerHTML = "listUsersResponse Error: JSON string evaluated to null.";
+                    return;
+                }
+
+
+                for (var i = 0; i< obj.postList.length; i++) {
+                    delete obj.postList[i].userPassword2;
+                }
+
+                // buildTable Parameters: 
+                // First:  array of objects that are to be built into an HTML table.
+                // Second: string that is database error (if any) or empty string if all OK.
+                // Third:  reference to DOM object where built table is to be stored. 
+                buildTable(obj.postList, obj.dbError, dataList);
+
+                }
+                
+                function setforumDataContent(httpRequest) {
+
+                console.log("listforumResponse - here is the value of httpRequest object (next line)");
+                console.log(httpRequest);
+
+                var dataList = document.createElement("div");
+                dataList.id = "dataList"; // this is for styling the HTML table.
+                document.getElementById("content").innerHTML = "";
+                document.getElementById("content").appendChild(dataList);
+
+                var obj = JSON.parse(httpRequest.responseText);
+
+                if (obj === null) {
+                    dataList.innerHTML = "listUsersResponse Error: JSON string evaluated to null.";
+                    return;
+                }
+
+
+                for (var i = 0; i< obj.forumList.length; i++) {
+                    delete obj.forumList[i].userPassword2;
+                }
+
+                // buildTable Parameters: 
+                // First:  array of objects that are to be built into an HTML table.
+                // Second: string that is database error (if any) or empty string if all OK.
+                // Third:  reference to DOM object where built table is to be stored. 
+                buildTable(obj.forumList, obj.dbError, dataList);
+
+                }
+                
+                function setforumContent(httpRequest) {
+
+                console.log("listforumResponse - here is the value of httpRequest object (next line)");
+                console.log(httpRequest);
+
+                var dataList = document.createElement("div");
+                dataList.id = "dataList"; // this is for styling the HTML table.
+                document.getElementById("content").innerHTML = "";
+                document.getElementById("content").appendChild(dataList);
+
+                var obj = JSON.parse(httpRequest.responseText);
+
+                if (obj === null) {
+                    dataList.innerHTML = "listUsersResponse Error: JSON string evaluated to null.";
+                    return;
+                }
+
+
+                for (var i = 0; i< obj.forumList.length; i++) {
+                    delete obj.forumList[i].userPassword2;
+                }
+
+                // buildTable Parameters: 
+                // First:  array of objects that are to be built into an HTML table.
+                // Second: string that is database error (if any) or empty string if all OK.
+                // Third:  reference to DOM object where built table is to be stored. 
+                buildForum(obj.forumList, obj.dbError, dataList);
 
                 }
                 

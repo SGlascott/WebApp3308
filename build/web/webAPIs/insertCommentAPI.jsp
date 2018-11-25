@@ -1,8 +1,9 @@
 <%@page contentType="application/json; charset=UTF-8" pageEncoding="UTF-8"%> 
 
 <%@page language="java" import="dbUtils.DbConn" %>
-<%@page language="java" import="model.forum.*" %>
-
+<%@page language="java" import="model.post.*" %>
+<%@page language="java" import="model.webUser.StringDataList"%>
+<%@page language="java" import="model.webUser.StringData"%> 
 <%@page language="java" import="com.google.gson.*" %>
 
 
@@ -16,7 +17,7 @@
     Gson gson = new Gson();
 
     DbConn dbc = new DbConn();
-    StringData errorMsgs = new StringData();
+    model.post.StringData errorMsgs = new model.post.StringData();
 
     String jsonInsertData = request.getParameter("jsonData");
     if (jsonInsertData == null) {
@@ -30,7 +31,10 @@
             
             // Must use gson to convert JSON (that the user provided as part of the url, the jsonInsertData. 
             // Convert from JSON (JS object notation) to POJO (plain old java object).
-            StringData insertData = gson.fromJson(jsonInsertData, StringData.class);
+            model.post.StringData insertData = gson.fromJson(jsonInsertData, model.post.StringData.class);
+            model.webUser.StringDataList User = (model.webUser.StringDataList) session.getAttribute("user");
+            String id = User.webUserList.get(0).webUserId;
+            insertData.firstName = id;
             
             // this method takes the user's input data as input and outputs an error message object (with same field names).
             errorMsgs = DbMods.insert(insertData, dbc); // this is the form level message

@@ -1,12 +1,12 @@
-var postCRUD = {}; // globally available object
+var commentCRUD = {}; // globally available object
 
 
 (function () {  // This is an IIFE, an Immediately Invoked Function Expression
     //alert("I am an IIFE!");
 
-    postCRUD.startInsert = function () {
+    commentCRUD.startInsert = function () {
 
-        ajax('htmlPartials/insertUpdatePost.html', setInsertUI, 'content');
+        ajax('htmlPartials/insertUpdateAssoc.html', setInsertUI, 'content');
 
         function setInsertUI(httpRequest) {
 
@@ -18,16 +18,17 @@ var postCRUD = {}; // globally available object
     };
 
 
-    postCRUD.insertSave = function () {
+    commentCRUD.insertSave = function () {
 
         console.log ("userCRUD.insertSave was called");
 
 
         // create a user object from the values that the user has typed into the page.
         var userInputObj = {
-            "postDate": "",
-            "postBody": document.getElementById("body").value,
-            "postTitle": document.getElementById("postTitle").value,
+            "commentDate": "",
+            "firstName": "",
+            "commentBody": document.getElementById("body").value,
+            "postTitle": document.getElementById("post").value,
             "errorMsg": ""
         };
         console.log(userInputObj);
@@ -36,7 +37,7 @@ var postCRUD = {}; // globally available object
         // you'll get a security error from the server. JSON.stringify converts the javaScript
         // object into JSON format (the reverse operation of what gson does on the server side).
         var myData = escape(JSON.stringify(userInputObj));
-        var url = "webAPIs/insertPostAPI.jsp?jsonData=" + myData;
+        var url = "webAPIs/insertCommentAPI.jsp?jsonData=" + myData;
         ajax(url, processInsert, "recordError");
 
         function processInsert(httpRequest) {
@@ -50,8 +51,8 @@ var postCRUD = {}; // globally available object
             console.log("here is JSON object (holds error messages.");
             console.log(jsonObj);
             
-            document.getElementById("titleError").innerHTML = jsonObj.title;
             document.getElementById("bodyError").innerHTML = jsonObj.body;
+            document.getElementById("postError").innerHTML = jsonObj.post;
 
             if (jsonObj.errorMsg.length === 0) { // success
                 jsonObj.errorMsg = "Record successfully inserted !!!";

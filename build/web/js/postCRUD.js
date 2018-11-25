@@ -25,9 +25,8 @@ var postCRUD = {}; // globally available object
 
         // create a user object from the values that the user has typed into the page.
         var userInputObj = {
-            "commentDate": "",
-            "firstName": document.getElementById("poster").value,
-            "commentBody": document.getElementById("body").value,
+            "postDate": "",
+            "postBody": document.getElementById("body").value,
             "postTitle": document.getElementById("postTitle").value,
             "errorMsg": ""
         };

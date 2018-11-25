@@ -1,7 +1,7 @@
 function findUserFn(userEmail, userPassword) {
     var target = document.getElementById("userInfoHere");
 
-    ajaxCall("webAPIs/LogOnAPI.jsp?email=" + userEmail + "&pwd=" + userPassword, loginSession, loginError);
+    ajax("webAPIs/LogOnAPI.jsp?email=" + userEmail + "&pwd=" + userPassword, loginSession, loginError);
 
     function loginSession(httpRequest) {
         var obj = JSON.parse(httpRequest.responseText);

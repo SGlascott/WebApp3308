@@ -56,6 +56,8 @@ var userCRUD = {}; // globally available object
         // create a user object from the values that the user has typed into the page.
         var userInputObj = {
             "webUserId": "",
+            "firstName": document.getElementById("firstName").value,
+            "lastName": document.getElementById("lastName").value,
             "userEmail": document.getElementById("userEmail").value,
             "userPassword": document.getElementById("userPassword").value,
             "userPassword2": document.getElementById("userPassword2").value,

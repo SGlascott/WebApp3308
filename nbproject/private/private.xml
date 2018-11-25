@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/paint/Documents/NetBeansProjects/WebApp3308/WebApp3308/web/webAPIs/insertUserAPI.jsp</file>
+            <file>file:/C:/Users/paint/Documents/NetBeansProjects/WebApp3308/WebApp3308/src/java/model/webUser/DbMods.java</file>
+            <file>file:/C:/Users/paint/Documents/NetBeansProjects/WebApp3308/WebApp3308/web/js/userCRUD.js</file>
+            <file>file:/C:/Users/paint/Documents/NetBeansProjects/WebApp3308/WebApp3308/web/htmlPartials/blogPage.html</file>
+            <file>file:/C:/Users/paint/Documents/NetBeansProjects/WebApp3308/WebApp3308/web/htmlPartials/insertUpdateUser.html</file>
+            <file>file:/C:/Users/paint/Documents/NetBeansProjects/WebApp3308/WebApp3308/src/java/model/webUser/StringData.java</file>
+        </group>
     </open-files>
 </project-private>
