@@ -74,4 +74,39 @@ public class DbMods {
         return errorMsgs;
     } // insert
     
+    public static String delete(String commentId, DbConn dbc) {
+
+        if (commentId == null) {
+            return "Programmer error: cannot attempt to delete web_user record that matches null user id";
+        }
+
+        // This method assumes that the calling Web API (JSP page) has already confirmed 
+        // that the database connection is OK. BUT if not, some reasonable exception should 
+        // be thrown by the DB and passed back anyway... 
+        String result = ""; // empty string result means the delete worked fine.
+        try {
+
+            String sql = "DELETE FROM post_comments WHERE comment_id = ?";
+
+            // This line compiles the SQL statement (checking for syntax errors against your DB).
+            PreparedStatement pStatement = dbc.getConn().prepareStatement(sql);
+
+            // Encode user data into the prepared statement.
+            pStatement.setString(1, commentId);
+
+            int numRowsDeleted = pStatement.executeUpdate();
+
+            if (numRowsDeleted == 0) {
+                result = "Programmer Error: did not delete the record with web_user_id " + commentId;
+            } else if (numRowsDeleted > 1) {
+                result = "Programmer Error: > 1 record deleted. Did you forget the WHERE clause?";
+            }
+
+        } catch (Exception e) {
+            result = "Exception thrown in model.webUser.DbMods.delete(): " + e.getMessage();
+        }
+
+        return result;
+    }//delete
+    
 } // class

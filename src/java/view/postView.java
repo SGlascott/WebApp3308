@@ -37,4 +37,35 @@ public class postView {
         return sdl;
     }
 
+    public static StringDataList getPostById(DbConn dbc, String id) {
+
+        //PreparedStatement stmt = null;
+        //ResultSet results = null;
+        StringDataList sdl = new StringDataList();
+        try {
+            String sql ="SELECT post_id, post_date, post_title, post_body"
+                    + "FROM forum_post"
+                    + "WHERE post_id = ?";
+
+            PreparedStatement stmt = dbc.getConn().prepareStatement(sql);
+
+            // Encode the id (that the user typed in) into the select statement, into the first 
+            // (and only) ? 
+            stmt.setString(1, id);
+            
+            System.out.println(stmt.toString());
+
+            ResultSet results = stmt.executeQuery();
+            if (results.next()) { // id is unique, one or zero records expected in result set
+                sdl.add(results);
+            }
+            results.close();
+            stmt.close();
+        } catch (Exception e) {
+            StringData sd = new StringData();
+            sd.errorMsg = "Exception thrown in WebUserView.getUserById(): " + e.getMessage();
+            sdl.add(sd);
+        }
+        return sdl;
+    }
 }

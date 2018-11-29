@@ -1,6 +1,11 @@
 <div id="insertArea">
 
     <table>
+        <tr id='postIdRow'>
+            <td>Post Id</td>
+            <td><input type="text"  id="postId" disabled="disabled"/></td>
+            <td ></td> 
+        </tr>
         <tr>
             <td>Title</td>
             <td><input type="text"  id="postTitle" /></td>
@@ -14,7 +19,10 @@
         
         <tr>
             <!-- see js/insertUser.js to see the insertUser function (make sure index.html referencesinvokes the js file) -->
-            <td><button onclick="postCRUD.insertSave()">Post</button></td>
+            <td>
+                <button id="insertSavePost" onclick="postCRUD.insertSave()">Post</button>
+                <button id="insertUpdatePost" onclick="postCRUD.updateSave()">update</button>
+            </td>
             <td id="recordError" class="error"></td>
             <td></td>
         </tr>

@@ -14,7 +14,7 @@ import java.sql.ResultSet;
  * protect this data in any way.  We want to let the JSP page have
  * free access to put data in or take it out. */
 public class StringData {
-
+    public String commentID = "";
     public String commentBody = "";
     public String commentDate = "";
     public String postTitle = "";
@@ -30,6 +30,7 @@ public class StringData {
     // overloaded constructor sets all data members by extracting from resultSet.
     public StringData(ResultSet results) {
         try {
+            this.commentID = FormatUtils.formatInteger(results.getObject("comment_id"));
             this.commentBody = FormatUtils.formatString(results.getObject("comment_body"));
             this.commentDate = FormatUtils.formatDate(results.getObject("comment_date"));
             this.postTitle = FormatUtils.formatString(results.getObject("post_title"));

@@ -21,9 +21,9 @@ and open the template in the editor.
                     <li id="title" style="float:left;">TU Happening</li>
                     <li class="navLink" id="dropdown" onclick="toggleChild(this)">&nbsp;&nbsp;&nbsp;&nbsp;Data&nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="subMenu">
-                            <a onclick = "ajax('webAPIs/listUsersAPI.jsp', setUserContent, 'content')">Users</a>
-                            <a onclick = "ajax('webAPIs/listAssocAPI.jsp', setAssocContent, 'content')">Assoc</a>
-                            <a onclick = "ajax('webAPIs/listOtherAPI.jsp', setforumDataContent, 'content')">ForumData</a>
+                            <a onclick = "ajax('webAPIs/listUsersAPI.jsp', userCRUD.list, 'content')">Users</a>
+                            <a onclick = "ajax('webAPIs/listAssocAPI.jsp', commentCRUD.list, 'content')">Assoc</a>
+                            <a onclick = "ajax('webAPIs/listOtherAPI.jsp', postCRUD.list, 'content')">ForumData</a>
                         </div>
                     </li>
                     <li class="navLink" id="dropdown" onclick="toggleChild(this)">&nbsp;&nbsp;&nbsp;&nbsp;Account&nbsp;&nbsp;&nbsp;&nbsp;
@@ -37,6 +37,7 @@ and open the template in the editor.
                     </li>
                     <li class="navLink"><a onclick = "ajax('webAPIs/listOtherAPI.jsp', setforumContent, 'content')">forum</a></li>
                     <li class="navLink"><a onclick = " ajax( 'htmlPartials/blogPage.html', setContent, 'content' )">Blog</a></li>
+                    <li class="navLink"><a href="http://webapptutorial-env.xgdhqs4pwn.us-east-2.elasticbeanstalk.com/">Tutorial</a></li>
                     <li class="navLink"><a onclick = " ajax( 'htmlPartials/homePage.html', setContent, 'content' )">Home</a></li>                    
                     </ul>
                 </div>

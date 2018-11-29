@@ -10,7 +10,7 @@ import dbUtils.*;
 
 public class RoleView {
 
-    public static StringDataList allRolesAPI(DbConn dbc) {
+    public static StringDataList getAllRoles(DbConn dbc) {
 
         StringDataList sdl = new StringDataList();
         try {
